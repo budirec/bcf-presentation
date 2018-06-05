@@ -1,0 +1,7 @@
+.idea
+.vscode
+
+configs/apache.conf
+configs/secrets.php
+
+api/vendor
