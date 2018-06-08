@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "php": ">=7.0",
-        "slim/slim": "^3.10"
+        "slim/slim": "~3.10",
+        "monolog/monolog": "~1.23"
     },
     "authors": [
         {
@@ -14,7 +15,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "BCF//": "src"
+            "BCF\\": "src"
         }
     }
 }
