@@ -1,7 +1,13 @@
 .idea
 .vscode
 
+*node_modules
+*.DS_Store
+
 configs/apache.conf
 configs/secrets.php
 
 api/vendor
+
+.dev
+.dist
