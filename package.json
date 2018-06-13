@@ -8,8 +8,8 @@
   "repository": "git@github.com:budirec/bcf-presentation.git",
   "license": "MIT",
   "scripts": {
-    "test-serve":"http-server",
-    "start": "webpack"
+    "test-serve": "http-server",
+    "start": "webpack-dev-server"
   },
   "dependencies": {
     "vue": "^2.5.16"
@@ -27,6 +27,7 @@
     "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.16",
     "webpack": "^4.11.1",
-    "webpack-cli": "^3.0.3"
+    "webpack-cli": "^3.0.3",
+    "webpack-dev-server": "^3.1.4"
   }
 }

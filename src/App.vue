@@ -13,16 +13,9 @@ export default Vue.extend({
   name: "bcf-app",
   data() {
     return {
-      name: "Vue App"
+      name: "Vue App with HMR"
     };
   },
-  template: `
-    <section>
-      <h1>
-      {{name}}
-      </h1>
-    </section>
-  `
 });
 </script>
 

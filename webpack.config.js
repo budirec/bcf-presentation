@@ -1,11 +1,12 @@
 const { resolve } = require('path');
+const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader').VueLoaderPlugin;
 
 let srcConfig = {
   entry: {
-    '/assets/scripts/main': './src/main.ts',
+    'assets/scripts/main': './src/main.ts',
   },
   output: {
     filename: '[name].js',
@@ -26,13 +27,14 @@ let srcConfig = {
   },
   devtool: 'inline-source-map',
   plugins: [
-    new VueLoaderPlugin(),
     new CleanWebpackPlugin(['.dev', '.dist'], {
-      root: '.'
+      root: fixedPath(),
     }),
+    new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       template: './www/index.html'
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   module: {
     rules: [
@@ -85,6 +87,17 @@ let srcConfig = {
     poll: 1000
   },
   mode: 'development'
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  srcConfig.devServer = {
+    contentBase: fixedPath('.dev'),
+    compress: true,
+    port: 3000,
+    hot: true,
+    publicPath: '',
+    index: '/index.html',
+  }
 }
 
 function fixedPath(path) {
