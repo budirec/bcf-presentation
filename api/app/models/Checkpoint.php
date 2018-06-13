@@ -2,7 +2,7 @@
 
 namespace BCF\Models;
 
-class Checkpoint extends \BCF\Models\Generated\Checkpoint
+class Checkpoint extends Generated\Checkpoint
 {
 
 }

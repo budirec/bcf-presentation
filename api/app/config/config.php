@@ -19,6 +19,7 @@ return new \Phalcon\Config([
     ],
 
     'application' => [
+        'controllersDir'      => APP_PATH . '/controllers/',
         'modelsDir'      => APP_PATH . '/models/',
         'migrationsDir'  => APP_PATH . '/migrations/',
         'viewsDir'       => APP_PATH . '/views/',

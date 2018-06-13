@@ -1,5 +1,7 @@
 <?php
 
+namespace BCF\Models\Generated;
+
 class Page extends \Phalcon\Mvc\Model
 {
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace BCF\Models\Generated;
+
 class SongSongStructure extends \Phalcon\Mvc\Model
 {
 
@@ -47,7 +49,8 @@ class SongSongStructure extends \Phalcon\Mvc\Model
         $this->setSchema("bcf_presentation");
         $this->setSource("song_song_structure");
         $this->hasMany('song_song_structure_id', 'Lyric', 'song_song_structure_id', ['alias' => 'Lyric']);
-        $this->hasMany('song_song_structure_id', 'SongSongStructureLog', 'song_song_structure_id', ['alias' => 'SongSongStructureLog']);
+        $this->hasMany('song_song_structure_id', 'SongSongStructureLog', 'song_song_structure_id',
+            ['alias' => 'SongSongStructureLog']);
         $this->belongsTo('song_id', '\Song', 'song_id', ['alias' => 'Song']);
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace BCF\Models\Generated;
+
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\Email as EmailValidator;
 
@@ -63,7 +65,7 @@ class User extends \Phalcon\Mvc\Model
             'email',
             new EmailValidator(
                 [
-                    'model'   => $this,
+                    'model' => $this,
                     'message' => 'Please enter a correct email address',
                 ]
             )

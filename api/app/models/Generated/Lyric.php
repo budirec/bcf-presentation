@@ -1,5 +1,7 @@
 <?php
 
+namespace BCF\Models\Generated;
+
 class Lyric extends \Phalcon\Mvc\Model
 {
 
@@ -62,7 +64,8 @@ class Lyric extends \Phalcon\Mvc\Model
         $this->setSchema("bcf_presentation");
         $this->setSource("lyric");
         $this->hasMany('lyric_id', 'LyricLog', 'lyric_id', ['alias' => 'LyricLog']);
-        $this->belongsTo('song_song_structure_id', '\SongSongStructure', 'song_song_structure_id', ['alias' => 'SongSongStructure']);
+        $this->belongsTo('song_song_structure_id', '\SongSongStructure', 'song_song_structure_id',
+            ['alias' => 'SongSongStructure']);
         $this->belongsTo('language_id', '\Language', 'language_id', ['alias' => 'Language']);
     }
 

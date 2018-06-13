@@ -1,5 +1,7 @@
 <?php
 
+namespace BCF\Models\Generated;
+
 class Song extends \Phalcon\Mvc\Model
 {
 

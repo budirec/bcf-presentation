@@ -1,5 +1,7 @@
 <?php
 
+namespace BCF\Models\Generated;
+
 class Slide extends \Phalcon\Mvc\Model
 {
 

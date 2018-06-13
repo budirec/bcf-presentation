@@ -1,5 +1,7 @@
 <?php
 
+namespace BCF\Models\Generated;
+
 class Layout extends \Phalcon\Mvc\Model
 {
 

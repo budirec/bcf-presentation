@@ -1,5 +1,7 @@
 <?php
 
+namespace BCF\Models\Generated;
+
 class SongStructure extends \Phalcon\Mvc\Model
 {
 

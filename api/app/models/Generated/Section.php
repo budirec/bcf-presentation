@@ -1,5 +1,7 @@
 <?php
 
+namespace BCF\Models\Generated;
+
 class Section extends \Phalcon\Mvc\Model
 {
 
