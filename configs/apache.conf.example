@@ -20,7 +20,7 @@
         ErrorLog ${APACHE_LOG_DIR}/bcf-presentation_error.log
         CustomLog ${APACHE_LOG_DIR}/bcf-presentation_access.log combined
 
-        Alias /swagger /Your/Web/Directory/swagger-ui/dist
+        Alias /swagger /Your/Web/Directory/swagger
         #Alias /api /Your/Web/Directory/api
 </VirtualHost>
 
@@ -40,6 +40,6 @@
         ErrorLog ${APACHE_LOG_DIR}/bcf-presentation_admin_error.log
         CustomLog ${APACHE_LOG_DIR}/bcf-presentation_admin_access.log combined
 
-        Alias /swagger /Your/Web/Directory/swagger-ui/dist
+        Alias /swagger /Your/Web/Directory/swagger
         #Alias /api /Your/Web/Directory/api
 </VirtualHost>
