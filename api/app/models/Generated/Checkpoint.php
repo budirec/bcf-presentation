@@ -56,9 +56,8 @@ class Checkpoint extends \Phalcon\Mvc\Model
     {
         $this->setSchema("bcf_presentation");
         $this->setSource("checkpoint");
-        $this->hasMany('checkpoint_id', 'CheckpointLog', 'checkpoint_id', ['alias' => 'CheckpointLog']);
-        $this->hasMany('checkpoint_id', 'Page', 'checkpoint_id', ['alias' => 'Page']);
-        $this->belongsTo('section_id', '\Section', 'section_id', ['alias' => 'Section']);
+        $this->hasMany('checkpoint_id', 'BCF\Models\Generated\Page', 'checkpoint_id', ['alias' => 'Page']);
+        $this->belongsTo('section_id', 'BCF\Models\Generated\Section', 'section_id', ['alias' => 'Section']);
     }
 
     /**
