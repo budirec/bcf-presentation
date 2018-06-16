@@ -2,7 +2,9 @@
 
 namespace BCF\Models;
 
-class Lyric extends Generated\Lyric
+use BCF\Models\Generated\AbstractLyric;
+
+class Lyric extends AbstractLyric
 {
 
 }

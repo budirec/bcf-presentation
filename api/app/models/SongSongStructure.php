@@ -2,7 +2,9 @@
 
 namespace BCF\Models;
 
-class SongSongStructure extends Generated\SongSongStructure
+use BCF\Models\Generated\AbstractSongSongStructure;
+
+class SongSongStructure extends AbstractSongSongStructure
 {
 
 }

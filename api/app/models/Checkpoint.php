@@ -2,7 +2,9 @@
 
 namespace BCF\Models;
 
-class Checkpoint extends Generated\Checkpoint
+use BCF\Models\Generated\AbstractCheckpoint;
+
+class Checkpoint extends AbstractCheckpoint
 {
 
 }

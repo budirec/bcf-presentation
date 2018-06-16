@@ -2,7 +2,9 @@
 
 namespace BCF\Models;
 
-class Language extends Generated\Language
+use BCF\Models\Generated\AbstractLanguage;
+
+class Language extends AbstractLanguage
 {
 
 }

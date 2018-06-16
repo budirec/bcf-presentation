@@ -2,7 +2,9 @@
 
 namespace BCF\Models;
 
-class User extends Generated\User
+use BCF\Models\Generated\AbstractUser;
+
+class User extends AbstractUser
 {
 
 }

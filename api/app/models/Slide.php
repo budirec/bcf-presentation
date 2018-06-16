@@ -2,7 +2,9 @@
 
 namespace BCF\Models;
 
-class Slide extends Generated\Slide
+use BCF\Models\Generated\AbstractSlide;
+
+class Slide extends AbstractSlide
 {
 
 }

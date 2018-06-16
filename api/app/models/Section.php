@@ -2,7 +2,9 @@
 
 namespace BCF\Models;
 
-class Section extends Generated\Section
+use BCF\Models\Generated\AbstractSection;
+
+class Section extends AbstractSection
 {
 
 }

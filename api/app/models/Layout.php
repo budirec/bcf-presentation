@@ -2,7 +2,9 @@
 
 namespace BCF\Models;
 
-class Layout extends Generated\Layout
+use BCF\Models\Generated\AbstractLayout;
+
+class Layout extends AbstractLayout
 {
 
 }
