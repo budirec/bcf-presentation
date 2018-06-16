@@ -1,21 +1,49 @@
 <VirtualHost *:80>
-        ServerName your.prefered.domain
+        ServerName presentation.bcf
 
-        DocumentRoot /Your/Web/Directory
+        DocumentRoot /Your/Web/Directory/www
         <Directory /Your/Web/Directory>
                 Options +Indexes +Includes +FollowSymLinks
                 AllowOverride All
                 Require all granted
         </Directory>
 
-        #Only if you use php-fpm
         <FilesMatch \.php$>
-                SetHandler "proxy:unix:/var/run/php/php7.0-fpm.sock|fcgi://localhost/"
+                SetHandler "proxy:unix:/var/run/php/php7.2-fpm.sock|fcgi://localhost/"
         </FilesMatch>
+
         <IfModule setenvif_module>
                 SetEnvIfNoCase ^Authorization$ "(.+)" HTTP_AUTHORIZATION=$1
         </IfModule>
 
         ErrorLog ${APACHE_LOG_DIR}/bcf-presentation_error.log
         CustomLog ${APACHE_LOG_DIR}/bcf-presentation_access.log combined
+
+        Alias /swagger /Your/Web/Directory/swagger
+        #Alias /api /Your/Web/Directory/api
+</VirtualHost>
+
+<VirtualHost *:80>
+        ServerName admin.presentation.bcf
+
+        DocumentRoot /Your/Web/Directory/admin
+        <Directory /Your/Web/Directory>
+                Options +Indexes +Includes +FollowSymLinks
+                AllowOverride All
+                Require all granted
+        </Directory>
+
+        <FilesMatch \.php$>
+                SetHandler "proxy:unix:/var/run/php/php7.2-fpm.sock|fcgi://localhost/"
+        </FilesMatch>
+
+        <IfModule setenvif_module>
+                SetEnvIfNoCase ^Authorization$ "(.+)" HTTP_AUTHORIZATION=$1
+        </IfModule>
+
+        ErrorLog ${APACHE_LOG_DIR}/bcf-presentation_admin_error.log
+        CustomLog ${APACHE_LOG_DIR}/bcf-presentation_admin_access.log combined
+
+        Alias /swagger /Your/Web/Directory/swagger
+        #Alias /api /Your/Web/Directory/api
 </VirtualHost>
