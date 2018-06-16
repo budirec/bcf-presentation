@@ -1,13 +1,12 @@
 <VirtualHost *:80>
+        ServerName presentation.bcf
+
+        DocumentRoot /Your/Web/Directory/www
         <Directory /Your/Web/Directory>
                 Options +Indexes +Includes +FollowSymLinks
                 AllowOverride All
                 Require all granted
         </Directory>
-
-        ServerName presentation.bcf
-
-        DocumentRoot /Your/Web/Directory/www/frontend
 
         <FilesMatch \.php$>
                 SetHandler "proxy:unix:/var/run/php/php7.2-fpm.sock|fcgi://localhost/"
@@ -27,7 +26,12 @@
 <VirtualHost *:80>
         ServerName admin.presentation.bcf
 
-        DocumentRoot /Your/Web/Directory/www/backend
+        DocumentRoot /Your/Web/Directory/admin
+        <Directory /Your/Web/Directory>
+                Options +Indexes +Includes +FollowSymLinks
+                AllowOverride All
+                Require all granted
+        </Directory>
 
         <FilesMatch \.php$>
                 SetHandler "proxy:unix:/var/run/php/php7.2-fpm.sock|fcgi://localhost/"
