@@ -11,10 +11,12 @@ $app->get('/', function () {
     echo $this['view']->render('index');
 });
 
+$app->router->setDefaultNamespace('BCF\Controllers');
+
 /**
  * Not found handler
  */
-$app->notFound(function () use($app) {
+$app->notFound(function () use ($app) {
     $app->response->setStatusCode(404, "Not Found")->sendHeaders();
     echo $app['view']->render('404');
 });
