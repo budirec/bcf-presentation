@@ -2,12 +2,13 @@
 
 namespace BCF\Controllers;
 
+use BCF\Models\Slide;
+
 class SlidesController extends \Phalcon\Mvc\Controller
 {
     public function indexAction()
     {
-        $t = ';';
-        echo '<h2>Hi</h2>';
+        echo json_encode(Slide::find());
     }
 
 }

@@ -110,3 +110,10 @@ $di->setShared('session', function () {
 
     return $session;
 });
+
+$di->setShared('logger', function () {
+    $config = $this->getConfig();
+
+    $logger = new \Phalcon\Logger\Adapter\File($config->application->appDir . '../../logs/app.log');
+    return $logger;
+});
