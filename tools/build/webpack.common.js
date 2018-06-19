@@ -2,13 +2,13 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader').VueLoaderPlugin;
 
-const { fixedPath } = require('./utils');
+const { projectPath } = require('./utils');
 
 module.exports = {
   entry: {
     'assets/scripts/main': './src/main.ts',
   },
-  context: fixedPath(),
+  context: projectPath(),
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
@@ -23,7 +23,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['.dev', '.dist'], {
-      root: fixedPath(),
+      root: projectPath(),
     }),
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
@@ -32,14 +32,6 @@ module.exports = {
   ],
   module: {
     rules: [
-      {
-        test: /\.(c|sa|sc)ss$/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-          'sass-loader',
-        ]
-      },
       {
         test: /\.ts$/,
         exclude: /(node_modules)/,
@@ -57,18 +49,6 @@ module.exports = {
           loader: 'vue-loader',
           options: {
             esModule: true,
-            loaders: {
-              scss: [
-                'vue-style-loader',
-                'css-loader',
-                'sass-loader'
-              ],
-              sass: [
-                'vue-style-loader',
-                'css-loader',
-                'sass-loader?indentedSyntax'
-              ]
-            }
           }
         }
       },

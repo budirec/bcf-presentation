@@ -2,23 +2,35 @@ const HotModuleReplacementPlugin = require('webpack').HotModuleReplacementPlugin
 const DefinePlugin = require('webpack').DefinePlugin;
 
 const commonConfig = require('./webpack.common');
-const { fixedPath } = require('./utils');
+const { projectPath } = require('./utils');
 
 const devConfig = {
   output: {
     filename: '[name].js',
-    path: fixedPath('.dev'),
+    path: projectPath('.dev'),
   },
   plugins: Array.prototype.concat(commonConfig.plugins, [
     new HotModuleReplacementPlugin(),
     new DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
-    })
+    }),
   ]),
+  module: {
+    rules: Array.prototype.concat(commonConfig.module.rules, [
+      {
+        test: /\.(c|sa|sc)ss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'sass-loader',
+        ]
+      },
+    ])
+  },
   devtool: 'inline-source-map',
   mode: 'development',
   devServer: {
-    contentBase: fixedPath('.dev'),
+    contentBase: projectPath('.dev'),
     compress: true,
     port: 3000,
     hot: true,

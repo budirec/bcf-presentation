@@ -8,15 +8,18 @@
 
 <script lang="ts">
 import Vue from "vue";
+import Component from "vue-class-component";
 
-export default Vue.extend({
-  name: "bcf-app",
-  data() {
-    return {
-      name: "Vue App with HMR"
-    };
-  },
-});
+@Component({
+  name: "bcf-app"
+})
+export default class extends Vue {
+  private nameHolder: string = "Vue App with HMR";
+
+  public get name(): string {
+    return this.nameHolder;
+  }
+}
 </script>
 
 <style <style lang="scss">

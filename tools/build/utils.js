@@ -1,7 +1,7 @@
 const { resolve } = require('path');
 
 module.exports = {
-  fixedPath: function fixedPath(path) {
+  projectPath: function projectPath(path) {
     let root = [__dirname, '..', '..'];
     if (!!path && path.length) {
       let dirPath = Array.prototype.concat(root, path.split('/')).join('/');
