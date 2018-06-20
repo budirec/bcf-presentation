@@ -1,0 +1,55 @@
+{
+	"slideId": 1,
+	"name": "A",
+	"sections": [{
+		"sectionId": 1,
+		"name": "A",
+		"order": 1,
+		"checkpoints": [{
+			"checkpointId": 1,
+			"name": "A",
+			"order": 1,
+			"pages": [{
+				"pageId": 1,
+				"layoutId": 1,
+				"content": "{json_object as needed}",
+				"order": 1
+			}, {
+				"pageId": 2,
+				"layoutId": 2,
+				"content": "{json_object as needed}",
+				"order": 2
+			}, {
+				"pageId": 3,
+				"layoutId": 2,
+				"content": "{json_object as needed}",
+				"order": 4
+			}, {
+				"pageId": 5,
+				"layoutId": 2,
+				"content": "{json_object as needed}",
+				"order": 3
+			}]
+		}, {
+			"sectionId": 2,
+			"name": "B",
+			"order": 2,
+			"checkpoints": [{
+				"checkpointId": 8,
+				"name": "A",
+				"order": 1,
+				"pages": [{
+					"pageId": 12,
+					"layoutId": 2,
+					"content": "{json_object as needed}",
+					"order": 1
+				}, {
+					"pageId": 13,
+					"layoutId": 3,
+					"content": "{json_object as needed}",
+					"order": 2
+				}]
+			}]
+		}]
+	}]
+}
