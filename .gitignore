@@ -11,3 +11,5 @@ api/vendor
 
 .dev
 .dist
+
+/vendor/
