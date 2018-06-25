@@ -36,6 +36,26 @@ abstract class BCFModel extends Model
         return $data;
     }
     
+    public function setAttributes(array $data)
+    {
+        foreach ($this->columnMap() as $column) {
+            if ($data[$column] ?? false) {
+                $this->set{ucwords($column)}($data[$column]);
+                unset($data[$column]);
+            }
+        }
+        
+        if (empty($data)) {
+            return;
+        }
+        
+        foreach ($this->getChildren() as $child => $value) {
+            if ($data[$child] ?? false) {
+                
+            }
+        }
+    }
+    
     /**
      * @return array
      */
