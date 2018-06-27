@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="BCF Presentation" default="BCFPresentation" basedir=".." description="SMB Portal">
+    <target name="BCFPresentation" depends="Start, Env, WebWriteable, Frontend"></target>
+
+    <target name="Start">
+        <echo msg="Setting up BCF Presentation"/>
+    </target>
+
+    <target name="Env">
+
+    </target>
+
+    <target name="WebWriteable">
+
+    </target>
+
+    <target name="Frontend">
+
+    </target>
+</project>

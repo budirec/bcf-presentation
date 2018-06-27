@@ -1,0 +1,13 @@
+{
+    "name": "bcf/presentation",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Budi Chandra",
+            "email": "budirec@gmail.com"
+        }
+    ],
+    "require": {
+        "zircote/swagger-php": "^2.0"
+    }
+}

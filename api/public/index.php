@@ -40,8 +40,6 @@ try {
      */
     $application = new \Phalcon\Mvc\Application($di);
 
-    $application->router->setDefaultNamespace('BCF\Controllers');
-
     echo str_replace(["\n", "\r", "\t"], '', $application->handle()->getContent());
 
 } catch (\Exception $e) {
