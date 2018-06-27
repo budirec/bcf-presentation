@@ -3,6 +3,7 @@
 namespace BCF\Controllers;
 
 use BCF\Models\Slide;
+use Phalcon\Mvc\Model\Exception;
 
 class SlidesController extends Core\BCFController
 {
@@ -44,8 +45,8 @@ class SlidesController extends Core\BCFController
      */
     public function indexAction()
     {
-        if ($this->request->isPost()) {
-            $this->create();
+        if ($this->request->isPost() || $this->request->isPut()) {
+            $data = $this->create();
         } elseif ($this->request->isGet()) {
             /** @var Slide[] $slides */
             $slides = Slide::find();
@@ -55,7 +56,7 @@ class SlidesController extends Core\BCFController
                 $data[] = $slide->toArray();
             }
         } else {
-            $this->update();
+            $data = $this->delete();
         }
         
         return $this->response($data);
@@ -96,10 +97,16 @@ class SlidesController extends Core\BCFController
     {
         $data = $this->request->getJsonRawBody(true);
         $slide = new Slide();
+        $slide->setAttributes($data);
         
+        if (!$slide->save()) {
+            throw new Exception($slide->getMessages(), 500);
+        }
+        
+        return $slide->toArray(null, true);
     }
     
-    private function update()
+    private function delete()
     {
         
     }

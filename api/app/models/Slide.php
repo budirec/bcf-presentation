@@ -151,7 +151,9 @@ class Slide extends Base\BCFModel
     {
         $this->setSchema("bcf_presentation");
         $this->setSource("slide");
-        $this->hasMany('slideId', 'BCF\Models\Section', 'slideId', ['alias' => 'Section']);
+        $this->hasMany('slideId', 'BCF\Models\Section', 'slideId', ['alias' => 'Sections']);
+    
+        parent::initialize();
     }
     
     /**
@@ -205,7 +207,16 @@ class Slide extends Base\BCFModel
     public function getChildren(): array
     {
         return [
-            'sections' => $this->getSection(),
+            'sections' => $this->getSections(),
         ];
     }
+    
+    public function setSections(array $sections)
+    {
+        $this->sections = $sections;
+    }
+    
+    const CHILD_CLASS = [
+        'sections' => 'BCF\Models\Section',
+    ];
 }

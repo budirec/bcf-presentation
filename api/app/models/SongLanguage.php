@@ -263,6 +263,8 @@ class SongLanguage extends Base\BCFModel
         $this->setSource("song_language");
         $this->belongsTo('songId', 'BCF\Models\Song', 'songId', ['alias' => 'Song']);
         $this->belongsTo('languageId', 'BCF\Models\Language', 'languageId', ['alias' => 'Language']);
+    
+        parent::initialize();
     }
     
     /**

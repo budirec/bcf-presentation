@@ -234,6 +234,8 @@ class Lyric extends Base\BCFModel
         $this->belongsTo('songSongStructureId', 'BCF\Models\SongSongStructure', 'songSongStructureId',
             ['alias' => 'SongSongStructure']);
         $this->belongsTo('languageId', 'BCF\Models\Language', 'languageId', ['alias' => 'Language']);
+    
+        parent::initialize();
     }
     
     /**

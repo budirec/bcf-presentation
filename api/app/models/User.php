@@ -226,6 +226,8 @@ class User extends Base\BCFModel
     {
         $this->setSchema("bcf_presentation");
         $this->setSource("user");
+    
+        parent::initialize();
     }
     
     /**
