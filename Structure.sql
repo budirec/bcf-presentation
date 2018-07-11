@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 26, 2018 at 11:39 PM
+-- Generation Time: Jul 10, 2018 at 05:11 PM
 -- Server version: 5.7.22-0ubuntu18.04.1
 -- PHP Version: 7.0.30-1+ubuntu18.04.1+deb.sury.org+1
 
@@ -41,10 +41,10 @@ CREATE TABLE `checkpoint` (
 DELIMITER $$
 CREATE TRIGGER `log_checkpoint_update` AFTER UPDATE ON `checkpoint` FOR EACH ROW IF NEW.modified_at <> OLD.modified_at THEN
   INSERT INTO checkpoint_log(checkpoint_id, old)
-       VALUES (
-                NEW.checkpoint_id,
-                json_object('section_id',OLD.section_id,'name',OLD.name,'number',OLD.number)
-              );
+  VALUES (
+    NEW.checkpoint_id,
+    json_object('section_id',OLD.section_id,'name',OLD.name,'number',OLD.number)
+  );
 END IF
 $$
 DELIMITER ;
@@ -81,10 +81,10 @@ CREATE TABLE `language` (
 DELIMITER $$
 CREATE TRIGGER `log_language_update` AFTER UPDATE ON `language` FOR EACH ROW IF NEW.modified_at <> OLD.modified_at THEN
   INSERT INTO language_log(language_id, old)
-       VALUES (
-                NEW.language_id,
-                json_object('name',OLD.name)
-              );
+  VALUES (
+    NEW.language_id,
+    json_object('name',OLD.name)
+  );
 END IF
 $$
 DELIMITER ;
@@ -121,10 +121,10 @@ CREATE TABLE `layout` (
 DELIMITER $$
 CREATE TRIGGER `log_layout_update` AFTER UPDATE ON `layout` FOR EACH ROW IF NEW.modified_at <> OLD.modified_at THEN
   INSERT INTO layout_log(layout_id, old)
-       VALUES (
-                NEW.layout_id,
-                json_object('name',OLD.name)
-              );
+  VALUES (
+    NEW.layout_id,
+    json_object('name',OLD.name)
+  );
 END IF
 $$
 DELIMITER ;
@@ -164,10 +164,10 @@ CREATE TABLE `lyric` (
 DELIMITER $$
 CREATE TRIGGER `log_lyric_update` AFTER UPDATE ON `lyric` FOR EACH ROW IF NEW.modified_at <> OLD.modified_at THEN
   INSERT INTO lyric_log(lyric_id, old)
-       VALUES (
-                NEW.lyric_id,
-                json_object('song_song_structure_id',OLD.song_song_structure_id,'language_id',OLD.language_id,	'number',OLD.number,'content',	OLD.content	)
-              );
+  VALUES (
+    NEW.lyric_id,
+    json_object('song_song_structure_id',OLD.song_song_structure_id,'language_id',OLD.language_id,	'number',OLD.number,'content',	OLD.content	)
+  );
 END IF
 $$
 DELIMITER ;
@@ -208,10 +208,10 @@ CREATE TABLE `page` (
 DELIMITER $$
 CREATE TRIGGER `log_page_update` AFTER UPDATE ON `page` FOR EACH ROW IF NEW.modified_at <> OLD.modified_at THEN
   INSERT INTO page_log(page_id, old)
-       VALUES (
-                NEW.page_id,
-                json_object('checkpoint_id',OLD.checkpoint_id,	'layout_id',OLD.layout_id,	'content',OLD.content,	'number',OLD.number,'background',OLD.background)
-              );
+  VALUES (
+    NEW.page_id,
+    json_object('checkpoint_id',OLD.checkpoint_id,	'layout_id',OLD.layout_id,	'content',OLD.content,	'number',OLD.number,'background',OLD.background)
+  );
 END IF
 $$
 DELIMITER ;
@@ -250,10 +250,10 @@ CREATE TABLE `section` (
 DELIMITER $$
 CREATE TRIGGER `log_section_update` AFTER UPDATE ON `section` FOR EACH ROW IF NEW.modified_at <> OLD.modified_at THEN
   INSERT INTO section_log(section_id, old)
-       VALUES (
-    	        NEW.section_id,
-    	        json_object('slide_id',OLD.slide_id,	'name',OLD.name,	'number',OLD.number)
-    		  );
+  VALUES (
+    NEW.section_id,
+    json_object('slide_id',OLD.slide_id,	'name',OLD.name,	'number',OLD.number)
+  );
 END IF
 $$
 DELIMITER ;
@@ -290,10 +290,10 @@ CREATE TABLE `slide` (
 DELIMITER $$
 CREATE TRIGGER `log_slide_update` AFTER UPDATE ON `slide` FOR EACH ROW IF NEW.modified_at <> OLD.modified_at THEN
   INSERT INTO slide_log(slide_id, old)
-       VALUES (
-                NEW.slide_id,
-                json_object('name',OLD.name)
-              );
+  VALUES (
+    NEW.slide_id,
+    json_object('name',OLD.name)
+  );
 END IF
 $$
 DELIMITER ;
@@ -330,10 +330,10 @@ CREATE TABLE `song` (
 DELIMITER $$
 CREATE TRIGGER `log_song_update` AFTER UPDATE ON `song` FOR EACH ROW IF NEW.modified_at <> OLD.modified_at THEN
   INSERT INTO song_log(song_id, old)
-       VALUES (
-                NEW.song_id,
-                json_object('name',OLD.name)
-              );
+  VALUES (
+    NEW.song_id,
+    json_object('name',OLD.name)
+  );
 END IF
 $$
 DELIMITER ;
@@ -361,10 +361,10 @@ CREATE TABLE `song_language` (
 DELIMITER $$
 CREATE TRIGGER `log_song_language_update` AFTER UPDATE ON `song_language` FOR EACH ROW IF NEW.modified_at <> OLD.modified_at THEN
   INSERT INTO song_language_log(song_language_id, old)
-       VALUES (
-                NEW.song_language_id,
-    			json_object('song_id', OLD.song_id,	'language_id', OLD.language_id,	'title', OLD.title,	'writer',OLD.writer,	'singable',OLD.singable)
-    	      );
+  VALUES (
+    NEW.song_language_id,
+    json_object('song_id', OLD.song_id,	'language_id', OLD.language_id,	'title', OLD.title,	'writer',OLD.writer,	'singable',OLD.singable)
+  );
 END IF
 $$
 DELIMITER ;
@@ -415,10 +415,10 @@ CREATE TABLE `song_song_structure` (
 DELIMITER $$
 CREATE TRIGGER `log_song_song_structure_update` AFTER UPDATE ON `song_song_structure` FOR EACH ROW IF NEW.modified_at <> OLD.modified_at THEN
   INSERT INTO song_song_structure_log(song_song_structure_id, old)
-       VALUES (
-                NEW.song_song_structure_id,
-                json_object('song_id', OLD.song_id,'name',OLD.name)
-              );
+  VALUES (
+    NEW.song_song_structure_id,
+    json_object('song_id', OLD.song_id,'name',OLD.name)
+  );
 END IF
 $$
 DELIMITER ;
@@ -455,10 +455,10 @@ CREATE TABLE `song_structure` (
 DELIMITER $$
 CREATE TRIGGER `log_song_structure_update` AFTER UPDATE ON `song_structure` FOR EACH ROW IF NEW.modified_at <> OLD.modified_at THEN
   INSERT INTO song_structure_log(song_structure_id, old)
-       VALUES (
-                NEW.song_structure_id,
-    			json_object('name',OLD.name)
-              );
+  VALUES (
+    NEW.song_structure_id,
+    json_object('name',OLD.name)
+  );
 END IF
 $$
 DELIMITER ;
@@ -497,10 +497,10 @@ CREATE TABLE `user` (
 DELIMITER $$
 CREATE TRIGGER `log_user_update` AFTER UPDATE ON `user` FOR EACH ROW IF NEW.modified_at <> OLD.modified_at THEN
   INSERT INTO user_log(user_id, old)
-       VALUES (
-                NEW.user_id,
-                json_object('username',OLD.username,'email',OLD.email,'password',OLD.password)
-              );
+  VALUES (
+    NEW.user_id,
+    json_object('username',OLD.username,'email',OLD.email,'password',OLD.password)
+  );
 END IF
 $$
 DELIMITER ;
@@ -700,7 +700,7 @@ ALTER TABLE `user_log`
 -- AUTO_INCREMENT for table `checkpoint`
 --
 ALTER TABLE `checkpoint`
-  MODIFY `checkpoint_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `checkpoint_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `checkpoint_log`
 --
@@ -710,7 +710,7 @@ ALTER TABLE `checkpoint_log`
 -- AUTO_INCREMENT for table `language`
 --
 ALTER TABLE `language`
-  MODIFY `language_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `language_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `language_log`
 --
@@ -720,7 +720,7 @@ ALTER TABLE `language_log`
 -- AUTO_INCREMENT for table `layout`
 --
 ALTER TABLE `layout`
-  MODIFY `layout_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `layout_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `layout_log`
 --
@@ -730,7 +730,7 @@ ALTER TABLE `layout_log`
 -- AUTO_INCREMENT for table `lyric`
 --
 ALTER TABLE `lyric`
-  MODIFY `lyric_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `lyric_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `lyric_log`
 --
@@ -740,17 +740,17 @@ ALTER TABLE `lyric_log`
 -- AUTO_INCREMENT for table `page`
 --
 ALTER TABLE `page`
-  MODIFY `page_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `page_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `page_log`
 --
 ALTER TABLE `page_log`
-  MODIFY `page_log_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `page_log_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `section_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `section_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `section_log`
 --
@@ -760,7 +760,7 @@ ALTER TABLE `section_log`
 -- AUTO_INCREMENT for table `slide`
 --
 ALTER TABLE `slide`
-  MODIFY `slide_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `slide_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `slide_log`
 --
@@ -770,12 +770,12 @@ ALTER TABLE `slide_log`
 -- AUTO_INCREMENT for table `song`
 --
 ALTER TABLE `song`
-  MODIFY `song_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `song_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `song_language`
 --
 ALTER TABLE `song_language`
-  MODIFY `song_language_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `song_language_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `song_language_log`
 --
@@ -787,6 +787,11 @@ ALTER TABLE `song_language_log`
 ALTER TABLE `song_log`
   MODIFY `song_log_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `song_song_structure`
+--
+ALTER TABLE `song_song_structure`
+  MODIFY `song_song_structure_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `song_song_structure_log`
 --
 ALTER TABLE `song_song_structure_log`
@@ -795,7 +800,7 @@ ALTER TABLE `song_song_structure_log`
 -- AUTO_INCREMENT for table `song_structure`
 --
 ALTER TABLE `song_structure`
-  MODIFY `song_structure_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `song_structure_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `song_structure_log`
 --
@@ -805,7 +810,7 @@ ALTER TABLE `song_structure_log`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_log`
 --
