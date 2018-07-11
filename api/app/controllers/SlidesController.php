@@ -2,8 +2,8 @@
 
 namespace BCF\Controllers;
 
+use BCF\Library\Utils\HttpException;
 use BCF\Models\Slide;
-use Phalcon\Mvc\Model\Exception;
 
 class SlidesController extends Core\BCFController
 {
@@ -84,15 +84,14 @@ class SlidesController extends Core\BCFController
     {
         /** @var Slide $slide */
         $slide = Slide::findFirstByName($name);
+        if ($slide) {
+            $data = $slide->toArray(null, true);
+            return $this->response($data);
+        }
         
-        $data = $slide->toArray(null, true);
-        
-        return $this->response($data);
+        throw new HttpException(HttpException::HTTP_NOT_FOUND, 'Slide not found');
     }
     
-    /**
-     *
-     */
     private function create()
     {
         $data = $this->request->getJsonRawBody(true);
@@ -100,7 +99,7 @@ class SlidesController extends Core\BCFController
         $slide->setAttributes($data);
         
         if (!$slide->save()) {
-            throw new Exception($slide->getMessages(), 500);
+            throw new HttpException(HttpException::HTTP_INTERNAL_SERVER_ERROR, $slide->getMessages());
         }
         
         return $slide->toArray(null, true);
