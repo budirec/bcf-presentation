@@ -16,12 +16,12 @@
     "throttle-debounce": "^2.0.0",
     "vue": "^2.5.16",
     "vue-class-component": "^6.2.0",
-    "vue-property-decorator": "^6.1.0"
+    "vue-property-decorator": "^7.0.0"
   },
   "devDependencies": {
     "@types/node": "^10.5.2",
     "clean-webpack-plugin": "^0.1.19",
-    "css-loader": "^0.28.11",
+    "css-loader": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.11.1",
     "mini-css-extract-plugin": "^0.4.1",
@@ -33,7 +33,7 @@
     "vue-loader": "^15.2.4",
     "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.16",
-    "webpack": "^4.15.1",
+    "webpack": "^4.16.0",
     "webpack-cli": "^3.0.8",
     "webpack-closure-compiler": "^2.1.6",
     "webpack-dev-server": "^3.1.4"
