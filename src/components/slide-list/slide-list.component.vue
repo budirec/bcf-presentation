@@ -27,9 +27,7 @@ import Component from "vue-class-component";
   props: ["slides"]
 })
 export default class extends Vue {
-  mounted() {
-    console.log("hello");
-  }
+  private mounted() {}
 }
 </script>
 

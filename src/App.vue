@@ -2,10 +2,14 @@
   <section>
     <h1>App</h1>
 
-    <div>
-      <h5>slideOrder: {{slideOrder}}</h5>
-      <SlidesList :slides="slidesHolder"/>
+    <div class="half">
+      <h5>slideIndex: {{slideIndex}}</h5>
+      <SlideList :slides="slideData"/>
     </div>
+    <div class="half">
+      <SlideDetail :slide="selectedSlide"/>
+    </div>
+
   </section>
 </template>
 
@@ -15,17 +19,16 @@ import Component from "vue-class-component";
 import { throttle } from "throttle-debounce";
 
 import { keyCodes } from "./utils/constants";
-import SlidesList from "./components/slides-list/slides-list.component.vue";
+import SlideList from "./components/slide-list/slide-list.component.vue";
+import SlideDetail from "./components/slide-detail/slide-detail.component.vue";
 
 const dumbData: any[] = [
   {
     // TODO: FINISH UP OBJECTS ARRAY
-    // fetch requests from 
+    // fetch requests from
     //   https://pacific-oasis-39245.herokuapp.com/slides/detail/20180711
     //   https://pacific-oasis-39245.herokuapp.com/slides
-    // prevent slideorder from exceeding array limits
     // loop between scenes with the push of a button
-    // set selected slide
     // make a new route for selected slide
     // fetch all slides eventually and store them on Vuex
   }
@@ -34,24 +37,33 @@ const dumbData: any[] = [
 @Component({
   name: "bcf-app",
   components: {
-    SlidesList
+    SlideList,
+    SlideDetail
   }
 })
 export default class extends Vue {
-  public slideOrder = 0;
+  public slideIndex: number = 0;
+  public slidesRange: { min: number; max: number };
+  public selectedSlide: any = {};
+  public slideData: Array<any> = [];
   private throttledKeyListener: Function;
-  private slidesHolder: Array<any> = [
-    {
-      id: Date.now(),
-      date: new Date(),
-      key: null,
-      selected: true
-    }
-  ];
 
   constructor() {
     super();
     this.throttledKeyListener = throttle(100, false, this.keyPressListener);
+    this.slideData = [
+      {
+        id: Date.now(),
+        date: new Date(),
+        key: null,
+        selected: true
+      }
+    ];
+    this.slidesRange = {
+      min: 0,
+      max: this.slideData.length - 1
+    };
+    this.selectedSlide = this.slideData[this.slideIndex];
   }
 
   private mounted() {
@@ -63,37 +75,27 @@ export default class extends Vue {
   }
 
   private keyPressListener(e: KeyboardEvent) {
-    // if (this.slidesHolder.length < 10) {
-    //   this.slidesHolder.map(i => (i.selected = false));
-    // }
-    e.preventDefault();
-
-    if (this.slidesHolder.length < 10) {
-      this.slidesHolder.unshift({
+    if (this.slideData.length < 10) {
+      this.slideData.push({
         date: new Date(),
         id: Date.now(),
         key: e.keyCode,
         selected: true
       });
     }
-    if (this.slideOrder >= 0 && this.slideOrder < 10) {
-      switch (e.keyCode) {
-        case keyCodes.up:
-          this.slideOrder++;
-          break;
-        case keyCodes.right:
-          this.slideOrder++;
-          break;
-        case keyCodes.down:
-          this.slideOrder--;
-          break;
-        case keyCodes.left:
-          this.slideOrder--;
-          break;
-        default:
-          break;
-      }
+
+    if (
+      this.slideIndex < this.slideData.length - 1 &&
+      (e.keyCode === keyCodes.up || e.keyCode === keyCodes.right)
+    ) {
+      this.slideIndex++;
+    } else if (
+      this.slideIndex > this.slidesRange.min &&
+      (e.keyCode === keyCodes.down || e.keyCode === keyCodes.left)
+    ) {
+      this.slideIndex--;
     }
+    this.selectedSlide = this.slideData[this.slideIndex];
   }
 }
 </script>
@@ -108,5 +110,11 @@ body {
   height: 100vh;
   margin: 0;
   width: 100vw;
+}
+
+.half {
+  display: inline-block;
+  max-width: 50%;
+  vertical-align: top;
 }
 </style>
