@@ -263,6 +263,8 @@ class Page extends Base\BCFModel
         $this->setSource("page");
         $this->belongsTo('checkpointId', 'BCF\Models\Checkpoint', 'checkpointId', ['alias' => 'Checkpoint']);
         $this->belongsTo('layoutId', 'BCF\Models\Layout', 'layoutId', ['alias' => 'Layout']);
+    
+        parent::initialize();
     }
     
     /**

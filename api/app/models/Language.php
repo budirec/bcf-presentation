@@ -143,6 +143,8 @@ class Language extends Base\BCFModel
         $this->setSource("language");
         $this->hasMany('languageId', 'BCF\Models\Lyric', 'languageId', ['alias' => 'Lyric']);
         $this->hasMany('languageId', 'BCF\Models\SongLanguage', 'languageId', ['alias' => 'SongLanguage']);
+    
+        parent::initialize();
     }
     
     /**

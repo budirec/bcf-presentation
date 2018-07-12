@@ -7,6 +7,7 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
+use BCF\Library\Utils\HttpException;
 
 /**
  * Shared configuration service
@@ -117,3 +118,32 @@ $di->setShared('logger', function () {
     $logger = new \Phalcon\Logger\Adapter\File($config->application->appDir . '../../logs/app.log');
     return $logger;
 });
+
+$di->setShared(
+    'dispatcher',
+    function () {
+        $eventsManager = new Phalcon\Events\Manager();
+        
+        $eventsManager->attach(
+            'dispatch:beforeException',
+            function (\Phalcon\Events\Event $event, $dispatcher, Exception $exception) {
+                $response = new Phalcon\Http\Response();
+    
+                if ($exception instanceof HttpException) {
+                    $response->setStatusCode($exception->getHttpResponseCode());
+                    $response->setContent($exception->getUserFriendlyMessage());
+                } else {
+                    $response->setStatusCode(HttpException::HTTP_INTERNAL_SERVER_ERROR);
+                    $response->setContent(HttpException::DEFAULT_ERROR_MESSAGE[HttpException::HTTP_INTERNAL_SERVER_ERROR]);
+                }
+    
+                $response->send();
+            }
+        );
+
+        $dispatcher = new \Phalcon\Mvc\Dispatcher();
+        $dispatcher->setEventsManager($eventsManager);
+
+        return $dispatcher;
+    }
+);

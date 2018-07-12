@@ -215,8 +215,10 @@ class Checkpoint extends Base\BCFModel
     {
         $this->setSchema("bcf_presentation");
         $this->setSource("checkpoint");
-        $this->hasMany('checkpointId', 'BCF\Models\Page', 'checkpointId', ['alias' => 'Page']);
+        $this->hasMany('checkpointId', 'BCF\Models\Page', 'checkpointId', ['alias' => 'Pages']);
         $this->belongsTo('sectionId', 'BCF\Models\Section', 'sectionId', ['alias' => 'Section']);
+    
+        parent::initialize();
     }
     
     /**
@@ -272,7 +274,15 @@ class Checkpoint extends Base\BCFModel
     public function getChildren(): array
     {
         return [
-            'pages' => $this->getPage(),
+            'pages' => $this->getPages(),
         ];
     }
+    
+    public function setPages(array $pages) {
+        $this->pages = $pages;
+    }
+    
+    const CHILD_CLASS = [
+        'pages' => 'BCF\Models\Page',
+    ];
 }

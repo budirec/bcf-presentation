@@ -172,6 +172,8 @@ class SongSongStructure extends Base\BCFModel
         $this->setSource("song_song_structure");
         $this->hasMany('songSongStructureId', 'BCF\Models\Lyric', 'songSongStructureId', ['alias' => 'Lyric']);
         $this->belongsTo('songId', 'BCF\Models\Song', 'songId', ['alias' => 'Song']);
+    
+        parent::initialize();
     }
 
     /**

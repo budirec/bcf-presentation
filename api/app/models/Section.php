@@ -201,8 +201,10 @@ class Section extends Base\BCFModel
     {
         $this->setSchema("bcf_presentation");
         $this->setSource("section");
-        $this->hasMany('sectionId', 'BCF\Models\Checkpoint', 'sectionId', ['alias' => 'Checkpoint']);
+        $this->hasMany('sectionId', 'BCF\Models\Checkpoint', 'sectionId', ['alias' => 'Checkpoints']);
         $this->belongsTo('slideId', 'BCF\Models\Slide', 'slideId', ['alias' => 'Slide']);
+        
+        parent::initialize();
     }
     
     /**
@@ -258,7 +260,16 @@ class Section extends Base\BCFModel
     public function getChildren(): array
     {
         return [
-            'checkpoints' => $this->getCheckpoint(),
+            'checkpoints' => $this->getCheckpoints(),
         ];
     }
+    
+    public function setCheckpoints(array $checkpoints)
+    {
+        $this->checkpoints = $checkpoints;
+    }
+    
+    const CHILD_CLASS = [
+        'checkpoints' => 'BCF\Models\Checkpoint',
+    ];
 }

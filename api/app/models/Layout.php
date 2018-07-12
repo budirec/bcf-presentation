@@ -142,6 +142,8 @@ class Layout extends Base\BCFModel
         $this->setSchema("bcf_presentation");
         $this->setSource("layout");
         $this->hasMany('layoutId', 'BCF\Models\Page', 'layoutId', ['alias' => 'Page']);
+    
+        parent::initialize();
     }
     
     /**

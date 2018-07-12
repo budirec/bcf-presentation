@@ -143,6 +143,8 @@ class Song extends Base\BCFModel
         $this->setSource("song");
         $this->hasMany('songId', 'BCF\Models\SongLanguage', 'songId', ['alias' => 'SongLanguage']);
         $this->hasMany('songId', 'BCF\Models\SongSongStructure', 'songId', ['alias' => 'SongSongStructure']);
+    
+        parent::initialize();
     }
     
     /**
