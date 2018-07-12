@@ -13,3 +13,4 @@ api/vendor
 .dist
 
 /vendor/
+*mock-data*

@@ -1,5 +1,7 @@
+import Vue from 'vue';
 import App from './App.vue';
 
-new App({
-  el: '#bcf'
+new Vue({
+  el: '#bcf',
+  render: h => h(App),
 })
