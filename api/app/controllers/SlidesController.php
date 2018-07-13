@@ -8,38 +8,27 @@ use BCF\Models\Slide;
 class SlidesController extends Core\BCFController
 {
     /**
-     * @SWG\Swagger(
-     *   schemes={"http"},
-     *   host="admin.presentation.bcf",
-     *   basePath="/api"
-     * )
-     */
-    
-    /**
-     * @SWG\Info(title="BCF Presentation", version="0.1")
-     */
-    
-    /**
      * @SWG\Get(
      *   path="/slides",
-     *   @SWG\Response(response="200", description="List of all available slides",@SWG\Schema(
-     *       ref="#/definitions/Slide"
-     *     ))
+     *   @SWG\Response(
+     *     response="200",
+     *     description="List of all available slides",
+     *     @SWG\Schema(ref="#/definitions/Slide")
+     *   )
      * )
      *
      * @SWG\Post(
-     *     path="/slides",
-     *     @SWG\Parameter(name="body",
-     *         in="body",
-     *         description="Pet object that needs to be added to the store",
-     *         required=true,
-     *         @SWG\Schema(ref="#/definitions/Slide"),),
+     *   path="/slides",
+     *   @SWG\Parameter(name="body",
+     *     in="body",
+     *     description="Pet object that needs to be added to the store",
+     *     required=true,
+     *     @SWG\Schema(ref="#/definitions/Slide"),
+     *   ),
      *   @SWG\Response(
      *     response="200",
      *     description="Slide with all it's relations",
-     *     @SWG\Schema(
-     *       ref="#/definitions/Slide"
-     *     )
+     *     @SWG\Schema(ref="#/definitions/Slide")
      *   )
      * )
      */
@@ -63,9 +52,13 @@ class SlidesController extends Core\BCFController
     }
     
     /**
+     * @param $name
+     * @return \Phalcon\Http\Response
+     * @throws HttpException
+     *
      * @SWG\Get(
-     *     path="/slides/detail/{name}",
-     *     @SWG\Parameter(
+     *   path="/slides/detail/{name}",
+     *   @SWG\Parameter(
      *     in="path",
      *     name="name",
      *     description="Slide's name",
@@ -74,9 +67,7 @@ class SlidesController extends Core\BCFController
      *   @SWG\Response(
      *     response="200",
      *     description="Slide with all it's relations",
-     *     @SWG\Schema(
-     *       ref="#/definitions/Slide"
-     *     )
+     *     @SWG\Schema(ref="#/definitions/Slide")
      *   )
      * )
      */
