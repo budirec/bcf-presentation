@@ -8,9 +8,18 @@
 
 namespace BCF\Controllers\Core;
 
-
 use Phalcon\Http\Response;
 
+/**
+ * Class BCFController
+ * @package BCF\Controllers\Core
+ *
+ * @SWG\Swagger(
+ *   basePath="/api"
+ * )
+ *
+ * @SWG\Info(title="BCF Presentation", version="0.1")
+ */
 class BCFController extends \Phalcon\Mvc\Controller
 {
     public function response($data, $format = 'json')
