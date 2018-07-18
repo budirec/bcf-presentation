@@ -4,10 +4,9 @@
     <ul>
       <li 
         v-for="(slide) in slides" 
-        v-bind:key="slide.id">
-          <p>item date: {{slide.date}}</p>
-          <p>slide code: {{slide.key}}</p>
-          <p>slide selected: {{slide.selected}}</p>
+        v-bind:key="slide.slideId">
+          <p>created @: {{slide.createdAt}}</p>
+          <p>name: {{slide.name}}</p>
       </li>
     </ul>
   </section>
@@ -17,6 +16,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 
+import { getAllSlides } from "./../../services";
 // TODO: Clean up this component
 // make a slide item component that will be the featured slide
 // <!-- v-if="item.selected || index === slideOrder" -->
@@ -27,7 +27,9 @@ import Component from "vue-class-component";
   props: ["slides"]
 })
 export default class extends Vue {
-  private mounted() {}
+  private mounted() {
+    
+  }
 }
 </script>
 

@@ -6,7 +6,7 @@
       <h5>slideIndex: {{slideIndex}}</h5>
       <SlideList :slides="slideData"/>
     </div>
-    <div class="half">
+    <div class="half" v-if="Object.keys(selectedSlide).length">
       <SlideDetail :slide="selectedSlide"/>
     </div>
 
@@ -21,6 +21,8 @@ import { throttle } from "throttle-debounce";
 import { keyCodes } from "./utils/constants";
 import SlideList from "./components/slide-list/slide-list.component.vue";
 import SlideDetail from "./components/slide-detail/slide-detail.component.vue";
+import { getAllSlides } from "./services";
+import { Slide } from "./models/slide.model";
 
 const dumbData: any[] = [
   {
@@ -43,31 +45,22 @@ const dumbData: any[] = [
 })
 export default class extends Vue {
   public slideIndex: number = 0;
-  public slidesRange: { min: number; max: number };
+  public slidesRange: { min: number; max: number } = {
+    min: 0,
+    max: 0
+  };
   public selectedSlide: any = {};
-  public slideData: Array<any> = [];
+  public slideData: Array<Slide> = [];
   private throttledKeyListener: Function;
 
   constructor() {
     super();
     this.throttledKeyListener = throttle(100, false, this.keyPressListener);
-    this.slideData = [
-      {
-        id: Date.now(),
-        date: new Date(),
-        key: null,
-        selected: true
-      }
-    ];
-    this.slidesRange = {
-      min: 0,
-      max: this.slideData.length - 1
-    };
-    this.selectedSlide = this.slideData[this.slideIndex];
   }
 
   private mounted() {
     window.addEventListener("keydown", <any>this.throttledKeyListener);
+    this.fetchSlides();
   }
 
   private beforeDestroy() {
@@ -75,27 +68,33 @@ export default class extends Vue {
   }
 
   private keyPressListener(e: KeyboardEvent) {
-    if (this.slideData.length < 10) {
-      this.slideData.push({
-        date: new Date(),
-        id: Date.now(),
-        key: e.keyCode,
-        selected: true
-      });
-    }
-
-    if (
-      this.slideIndex < this.slideData.length - 1 &&
-      (e.keyCode === keyCodes.up || e.keyCode === keyCodes.right)
-    ) {
-      this.slideIndex++;
-    } else if (
-      this.slideIndex > this.slidesRange.min &&
-      (e.keyCode === keyCodes.down || e.keyCode === keyCodes.left)
-    ) {
-      this.slideIndex--;
+    if (this.slideData.length) {
+      if (
+        this.slideIndex < this.slideData.length - 1 &&
+        (e.keyCode === keyCodes.up || e.keyCode === keyCodes.right)
+      ) {
+        this.slideIndex++;
+      } else if (
+        this.slideIndex > this.slidesRange.min &&
+        (e.keyCode === keyCodes.down || e.keyCode === keyCodes.left)
+      ) {
+        this.slideIndex--;
+      }
     }
     this.selectedSlide = this.slideData[this.slideIndex];
+  }
+
+  private fetchSlides() {
+    getAllSlides()
+      .then(data => {
+        this.slideData = Array.prototype.map.call(
+          data,
+          slide => new Slide(slide)
+        );
+        this.slidesRange.max = this.slideData.length - 1;
+        this.selectedSlide = this.slideData[this.slideIndex];
+      })
+      .catch(err => console.error({ err }));
   }
 }
 </script>
