@@ -1,7 +1,6 @@
 <template>
   <section>
-    <p>slides-list</p>
-    <ul>
+    <ul v-if="slides && slides.length">
       <li 
         v-for="(slide) in slides" 
         v-bind:key="slide.slideId">
@@ -15,8 +14,10 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import { Prop } from "vue-property-decorator";
 
 import { getAllSlides } from "./../../services";
+import { Slide } from "../../models/slide.model";
 // TODO: Clean up this component
 // make a slide item component that will be the featured slide
 // <!-- v-if="item.selected || index === slideOrder" -->
@@ -27,11 +28,12 @@ import { getAllSlides } from "./../../services";
   props: ["slides"]
 })
 export default class extends Vue {
-  private mounted() {
-    
-  }
+  @Prop([Slide]) slides: Array<Slide>;
+
+  private mounted() { }
 }
 </script>
 
 <style lang="scss">
+// 
 </style>

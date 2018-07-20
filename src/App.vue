@@ -1,15 +1,15 @@
 <template>
   <section>
-    <h1>App</h1>
+    <!-- <nav></nav> -->
 
-    <div class="half">
-      <h5>slideIndex: {{slideIndex}}</h5>
-      <SlideList :slides="slideData"/>
-    </div>
+    <!--
     <div class="half" v-if="Object.keys(selectedSlide).length">
       <SlideDetail :slide="selectedSlide"/>
-    </div>
+    </div> -->
 
+    <router-view></router-view>
+
+    <!-- <footer></footer> -->
   </section>
 </template>
 
@@ -58,44 +58,32 @@ export default class extends Vue {
     this.throttledKeyListener = throttle(100, false, this.keyPressListener);
   }
 
-  private mounted() {
-    window.addEventListener("keydown", <any>this.throttledKeyListener);
-    this.fetchSlides();
-  }
+  // private mounted() {
+  //   window.addEventListener("keydown", <any>this.throttledKeyListener);
+  // }
 
-  private beforeDestroy() {
-    window.removeEventListener("keydown", <any>this.throttledKeyListener);
-  }
+  // private beforeDestroy() {
+  //   window.removeEventListener("keydown", <any>this.throttledKeyListener);
+  // }
 
-  private keyPressListener(e: KeyboardEvent) {
-    if (this.slideData.length) {
-      if (
-        this.slideIndex < this.slideData.length - 1 &&
-        (e.keyCode === keyCodes.up || e.keyCode === keyCodes.right)
-      ) {
-        this.slideIndex++;
-      } else if (
-        this.slideIndex > this.slidesRange.min &&
-        (e.keyCode === keyCodes.down || e.keyCode === keyCodes.left)
-      ) {
-        this.slideIndex--;
-      }
-    }
-    this.selectedSlide = this.slideData[this.slideIndex];
-  }
+  // private keyPressListener(e: KeyboardEvent) {
+  //   if (this.slideData.length) {
+  //     if (
+  //       this.slideIndex < this.slideData.length - 1 &&
+  //       (e.keyCode === keyCodes.up || e.keyCode === keyCodes.right)
+  //     ) {
+  //       this.slideIndex++;
+  //     } else if (
+  //       this.slideIndex > this.slidesRange.min &&
+  //       (e.keyCode === keyCodes.down || e.keyCode === keyCodes.left)
+  //     ) {
+  //       this.slideIndex--;
+  //     }
+  //   }
+  //   this.selectedSlide = this.slideData[this.slideIndex];
+  // }
 
-  private fetchSlides() {
-    getAllSlides()
-      .then(data => {
-        this.slideData = Array.prototype.map.call(
-          data,
-          slide => new Slide(slide)
-        );
-        this.slidesRange.max = this.slideData.length - 1;
-        this.selectedSlide = this.slideData[this.slideIndex];
-      })
-      .catch(err => console.error({ err }));
-  }
+
 }
 </script>
 
