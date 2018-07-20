@@ -7,7 +7,7 @@ export class Slide {
 
   constructor(obj: SlideI) {
     Object.keys(obj).forEach((o: any) => {
-      this[o] = obj && obj[o];
+      this[o] = obj && obj[o] || null;
     })
   }
 }
@@ -17,5 +17,5 @@ interface SlideI {
   name: string,
   createdAt: Date,
   modifiedAt: Date,
-  [key: string]: string | number | Date;
+  [key: string]: string | number | Date | null;
 }

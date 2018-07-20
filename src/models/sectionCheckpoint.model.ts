@@ -13,9 +13,9 @@ export class SectionCheckpoint {
   constructor(obj: SectionCheckpointI) {
     Object.keys(obj).forEach((o) => {
       if (Array.isArray(o)) {
-        this[o] = obj && obj[o].map((p: SectionPage) => new SectionPage(p))
+        this[o] = obj && (<Array<any>>obj[o]).map((p: SectionPage) => new SectionPage(p)) || [];
       } else {
-        this[o] = obj && obj[o];
+        this[o] = obj && obj[o] || null;
       }
     })
   }

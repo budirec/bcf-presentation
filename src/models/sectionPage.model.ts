@@ -7,7 +7,7 @@ export class SectionPage {
 
   constructor(obj: SectionPageI) {
     Object.keys(obj).forEach((o: any) => {
-      this[o] = obj && obj[o];
+      this[o] = obj && obj[o] || null;
     })
   }
 }

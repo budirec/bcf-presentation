@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div v-if="slide">
+    <div v-if="Object.keys(slide).length">
       <h1>Name = {{slide.name}}</h1>
     </div>
 
@@ -11,6 +11,8 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import { Prop } from "vue-property-decorator";
+
 import { getSlideDetail } from "../../services";
 import { Slide } from "../../models/slide.model";
 
@@ -18,10 +20,10 @@ import { Slide } from "../../models/slide.model";
   props: ["slide"]
 })
 export default class extends Vue {
-  public slide: Slide;
+  @Prop(Slide) slide: Slide | any = {};
 
   private mounted() {
-    if (this.slide.slideId === 1) {
+    if (this.slide && this.slide.slideId === 1) {
       getSlideDetail(this.slide.name).then(slideDetail => {
         console.log({ slideDetail });
       });

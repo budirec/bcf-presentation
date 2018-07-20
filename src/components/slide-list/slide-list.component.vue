@@ -28,7 +28,7 @@ import { Slide } from "../../models/slide.model";
   props: ["slides"]
 })
 export default class extends Vue {
-  @Prop([Slide]) slides: Array<Slide>;
+  @Prop([Slide]) slides: Array<Slide> = [];
 
   private mounted() { }
 }

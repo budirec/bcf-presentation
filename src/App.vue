@@ -51,11 +51,11 @@ export default class extends Vue {
   };
   public selectedSlide: any = {};
   public slideData: Array<Slide> = [];
-  private throttledKeyListener: Function;
+  // private throttledKeyListener: Function;
 
   constructor() {
     super();
-    this.throttledKeyListener = throttle(100, false, this.keyPressListener);
+    // this.throttledKeyListener = throttle(100, false, this.keyPressListener);
   }
 
   // private mounted() {

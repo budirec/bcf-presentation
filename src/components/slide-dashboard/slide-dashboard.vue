@@ -36,7 +36,10 @@ export default class extends Vue {
   private getSlides() {
     getAllSlides()
       .then(data => {
-        this.slides = Array.prototype.map.call(data, slide => new Slide(slide));
+        this.slides = Array.prototype.map.call(
+          data,
+          (slide: any) => new Slide(slide)
+        );
       })
       .catch(err => console.error({ err }));
   }
