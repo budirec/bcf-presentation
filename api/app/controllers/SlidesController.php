@@ -2,8 +2,11 @@
 
 namespace BCF\Controllers;
 
+use BCF\Library\Utils\DBHelper;
 use BCF\Library\Utils\HttpException;
 use BCF\Models\Slide;
+
+use Phalcon\Paginator\Adapter\Model as PaginatorModel;
 
 class SlidesController extends Core\BCFController
 {
@@ -14,6 +17,18 @@ class SlidesController extends Core\BCFController
      *     response="200",
      *     description="List of all available slides",
      *     @SWG\Schema(ref="#/definitions/Slide")
+     *   ),
+     *   @SWG\Parameter(
+     *     name="pagination",
+     *     in="query",
+     *   ),
+     *   @SWG\Parameter(
+     *     name="order",
+     *     in="query",
+     *   ),
+     *   @SWG\Parameter(
+     *     name="search",
+     *     in="query",
      *   )
      * )
      *
@@ -37,11 +52,40 @@ class SlidesController extends Core\BCFController
         if ($this->request->isPost() || $this->request->isPut()) {
             $data = $this->create();
         } elseif ($this->request->isGet()) {
-            /** @var Slide[] $slides */
-            $slides = Slide::find();
+            $search = json_decode($this->request->getQuery('search'));
+            
+            $order = json_decode($this->request->getQuery('order'));
+            if (!$order) {
+                $order = [
+                    'slideId DESC',
+                ];
+            }
+            
+            $pagination = json_decode($this->request->getQuery('pagination'));
+            if (!$pagination) {
+                $pagination = (object)[
+                    'page' => 1,
+                    'perPage' => 2,
+                ];
+            }
+            
+            $criteria = [];
+            if ($search) {
+                $criteria = DBHelper::createWhere($search);
+            }
+            $criteria['order'] = implode(',', $order);
+            
+            $slides = new PaginatorModel(
+                [
+                    'data' => Slide::find($criteria),
+                    'limit' => $pagination->perPage,
+                    'page' => $pagination->page,
+                ]
+            );
             
             $data = [];
-            foreach ($slides as $slide) {
+            /** @var Slide $slide */
+            foreach ($slides->getPaginate()->items as $slide) {
                 $data[] = $slide->toArray();
             }
         } else {

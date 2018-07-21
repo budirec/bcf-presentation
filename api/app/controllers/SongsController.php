@@ -8,8 +8,11 @@
 
 namespace BCF\Controllers;
 
+use BCF\Library\Utils\DBHelper;
 use BCF\Library\Utils\HttpException;
 use BCF\Models\Song;
+
+use Phalcon\Paginator\Adapter\Model as PaginatorModel;
 
 class SongsController extends Core\BCFController
 {
@@ -20,6 +23,18 @@ class SongsController extends Core\BCFController
      *     response="200",
      *     description="List of all available songs",
      *     @SWG\Schema(ref="#/definitions/Song")
+     *   ),
+     *   @SWG\Parameter(
+     *     name="pagination",
+     *     in="query",
+     *   ),
+     *   @SWG\Parameter(
+     *     name="order",
+     *     in="query",
+     *   ),
+     *   @SWG\Parameter(
+     *     name="search",
+     *     in="query",
      *   )
      * )
      *
@@ -43,13 +58,39 @@ class SongsController extends Core\BCFController
         if ($this->request->isPost() || $this->request->isPut()) {
             $data = $this->create();
         } elseif ($this->request->isGet()) {
-            $search = $this->request->getQuery('search');
+            $search = json_decode($this->request->getQuery('search'));
             
-            /** @var Song[] $songs */
-            $songs = Song::find();
+            $order = json_decode($this->request->getQuery('order'));
+            if (!$order) {
+                $order = [
+                    'slideId DESC',
+                ];
+            }
+            
+            $pagination = json_decode($this->request->getQuery('pagination'));
+            if (!$pagination) {
+                $pagination = (object)[
+                    'page' => 1,
+                    'perPage' => 2,
+                ];
+            }
+            
+            $criteria = [];
+            if ($search) {
+                $criteria = DBHelper::createWhere($search);
+            }
+            $criteria['order'] = implode(',', $order);
+            
+            $songs = new PaginatorModel(
+                [
+                    'data' => Song::find($criteria),
+                    'limit' => $pagination->perPage,
+                    'page' => $pagination->page,
+                ]
+            );
             
             $data = [];
-            foreach ($songs as $song) {
+            foreach ($songs->getPaginate()->items as $song) {
                 $data[] = $song->toArray();
             }
         } else {
