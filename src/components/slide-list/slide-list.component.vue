@@ -1,13 +1,10 @@
 <template>
   <section>
-    <ul v-if="slides && slides.length">
-      <li 
-        v-for="(slide) in slides" 
-        v-bind:key="slide.slideId">
-          <p>created @: {{slide.createdAt}}</p>
-          <p>name: {{slide.name}}</p>
-      </li>
-    </ul>
+    <el-table :data="slides" height="200" style="width: 100%" v-if="slides && slides.length">
+      <el-table-column prop="slideId" label="Slide ID"></el-table-column>
+      <el-table-column prop="name" label="Name"></el-table-column>
+      <el-table-column prop="createdAt" label="Created At"></el-table-column>
+    </el-table>
   </section>
 </template>
 
