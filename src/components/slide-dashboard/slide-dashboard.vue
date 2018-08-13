@@ -4,8 +4,8 @@
       <h1>Slide Dashboard</h1>
     </header>
 
-    <section>
-      <SlideList :slides="slides" />
+    <section v-if="slidesList && slidesList.length">
+      <SlideList :slides="slidesList" />
     </section>
   </div>
 </template>
@@ -13,41 +13,28 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import { mapGetters } from "vuex";
 
 import SlideList from "./../slide-list/slide-list.component.vue";
-import { Slide } from "./../../models/slide.model";
-import { getAllSlides } from "./../../services";
 
 @Component({
   components: {
     SlideList
+  },
+  computed: {
+    ...mapGetters({
+      slidesList: "getSlides"
+    })
   }
 })
 export default class extends Vue {
-  public slides: Array<Slide> = [];
-  constructor() {
-    super();
-  }
-
-  private mounted() {
-    this.getSlides();
-  }
-
-  private getSlides() {
-    getAllSlides()
-      .then(data => {
-        this.slides = Array.prototype.map.call(
-          data,
-          (slide: any) => new Slide(slide)
-        );
-      })
-      .catch(err => console.error({ err }));
+  mounted() {
+    if (!this.$store.getters.getSlides.length) {
+      this.$store.dispatch("fetchSlides");
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-//
 </style>
-
-

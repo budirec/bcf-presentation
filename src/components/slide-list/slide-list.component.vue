@@ -1,6 +1,6 @@
 <template>
   <section>
-    <ul v-if="slides && slides.length">
+    <ul>
       <li 
         v-for="(slide) in slides" 
         v-bind:key="slide.slideId">
@@ -27,13 +27,9 @@ import { Slide } from "../../models/slide.model";
 @Component({
   props: ["slides"]
 })
-export default class extends Vue {
-  @Prop([Slide]) slides: Array<Slide> = [];
-
-  private mounted() { }
-}
+export default class extends Vue {}
 </script>
 
 <style lang="scss">
-// 
+//
 </style>

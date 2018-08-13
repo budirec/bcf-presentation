@@ -1,23 +1,35 @@
-import { StoreOptions } from 'vuex';
-import { Slide } from 'models/slide.model';
+import { StoreOptions, Commit } from 'vuex';
 
-const initialSlides: Array<Slide> = [];
-const state = {
-  slides: initialSlides,
+import { Slide } from './../../models/slide.model';
+import { SET_SLIDES } from './mutationTypes';
+import { getAllSlides } from './../../services';
+
+const state: SlideStateI = {
+  slides: [],
 }
 
 const getters = {
-  slideList: ((state, getter, rootState) => {
-    // 
-  })
+  getSlides: ((state: SlideStateI) => state.slides),
 }
 
 const actions = {
-  // 
+  fetchSlides({ state, commit }: SlideActionOptionsI) {
+    getAllSlides()
+      .then(data => {
+        let slides = Array.prototype.map.call(
+          data,
+          (slide: any) => new Slide(slide)
+        );
+        commit(SET_SLIDES, slides)
+      })
+      .catch(err => console.error({ err }));
+  }
 }
 
 const mutations = {
-  // 
+  [SET_SLIDES](state: SlideStateI, slides: Array<Slide>) {
+    state.slides = slides;
+  }
 }
 
 const storeOptions: StoreOptions<any> = {
@@ -28,3 +40,12 @@ const storeOptions: StoreOptions<any> = {
 }
 
 export default storeOptions;
+
+interface SlideStateI {
+  slides: Array<Slide>;
+}
+
+interface SlideActionOptionsI {
+  state: SlideStateI;
+  commit: Commit;
+}
